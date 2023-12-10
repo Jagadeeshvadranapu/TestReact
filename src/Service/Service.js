@@ -6,9 +6,9 @@ export const ApiRequest = {
     },
     CalucateProjectedROI:  async(params) =>{
         const options = {
-            method: 'post',
+            method: 'Post',
             headers: {
-               'Content-Type': 'application/json'
+               'Content-Type': 'application/json'            
             },
             body:  JSON.stringify(params)
            }
