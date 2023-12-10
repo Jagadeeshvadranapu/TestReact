@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.Inv-Intputgrp{
+  width: 35% !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
