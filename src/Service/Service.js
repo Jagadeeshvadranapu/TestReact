@@ -1,4 +1,4 @@
-const ApiURL = "https://localhost:7249/api";
+const ApiURL = "https://jagadeeshwebapplication1api.azure-api.net/api";
 export const ApiRequest = {
     GetInvestmentOptions : async() =>{
         const response = await fetch(ApiURL+"/Investment/GetInvestmentOptions");
