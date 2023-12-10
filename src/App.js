@@ -17,7 +17,8 @@ class App extends React.Component {
       investAmount: 100000,
       availableAmount: 0,
       investOptionsList: [],
-      investedItems: []
+      investedItems: [],
+      showProjectROI: false
     }
   }
   componentDidMount() {
@@ -29,25 +30,30 @@ class App extends React.Component {
         investOptionsList: data,
         availableAmount: this.state.investAmount
       });
+    }).catch((ex) => {
+      console.log(ex)
     });
   }
-  investedItemTrigger(args){
+  investedItemTrigger(args) {
     this.applicationState.investedItems.push(args);
+    this.applicationState.showProjectROI = true;
   }
 
   render() {
     return (
-      <div style={{ padding: '1rem' }}>
-        {
-          this.state.investOptionsList.length != 0 &&
-          <Tabs defaultActiveKey="InvestmentOptions" id="homeTab" className="mb-3">
-            <Tab eventKey="InvestmentOptions" title="Investment Options">
-              <InverstmentTab applicationState={this.state} investedItemTrigger={this.investedItemTrigger}/>
-            </Tab>
-            <Tab eventKey="ProjectedROI" title="Projected ROI"> <ROITab applicationState={this.state} /> </Tab>
-          </Tabs>
 
-        }
+      <div style={{ padding: '1rem' }}>
+        <Tabs defaultActiveKey="InvestmentOptions" id="homeTab" className="mb-3">
+          <Tab eventKey="InvestmentOptions" title="Investment Options">
+            {
+              this.state.investOptionsList.length != 0 &&
+              <InverstmentTab applicationState={this.state} investedItemTrigger={this.investedItemTrigger} />
+            }
+          </Tab>
+          <Tab eventKey="ProjectedROI" title="Projected ROI">
+            <ROITab applicationState={this.state} />
+          </Tab>
+        </Tabs>
       </div>
     )
   }
