@@ -46,16 +46,19 @@ class InvestmentTable extends React.Component {
   }
   updateAvailableAmount(args) {
     const investedRow = this.state.investedList;
-    if (investedRow.length > 0) {
-      const existingRow = investedRow.filter((row) => row?.option == args.option);
-      if (existingRow.length == 0) {
-        investedRow.push(args);
-        this.calculateAvailAmount(args)
-      }
-    } else {
-      investedRow.push(args);
-      this.calculateAvailAmount(args);
-    }
+    // if (investedRow.length > 0) {
+    // //   const existingRow = investedRow.filter((row) => row?.option == args.option);
+    // //   if (existingRow.length == 0) {
+    // //     investedRow.push(args);
+    // //     this.calculateAvailAmount(args)
+    // //   }
+    // // } else {
+    // //   investedRow.push(args);
+    // //   this.calculateAvailAmount(args);
+    // //}
+    //  }
+    investedRow.push(args);
+    this.calculateAvailAmount(args);
     this.setState({ investedList: investedRow });
     
   }

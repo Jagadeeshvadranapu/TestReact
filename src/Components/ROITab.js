@@ -16,20 +16,30 @@ class ROITab extends React.Component {
     }
     calculate() {
         const investedItems = this.props.applicationState.investedItems;
-        this.setSpinner(false)
+        
         if (investedItems.length > 0) {
+            this.setSpinner(false);
             ApiRequest.CalucateProjectedROI(investedItems).then((data) => {
-                this.setState({
-                    ProjectedROI: data.projectedROI + ' AUD',
-                    ProjectedFees: data.projectedFees + ' USD',
-                    Spinner: true
-                })
-            }).catch((ex) => {
-                console.log(ex);
-                this.setSpinner(true)
+                this.setSpinner(true);
+                if (data != null) {
+                    if (data.status == null) {
+                        this.setState({
+                            ProjectedROI: data.projectedROI + ' AUD',
+                            ProjectedFees: data.projectedFees + ' USD'
+                        })
+                    }else{
+                        if(data.errors != null){
+                            alert(JSON.stringify(data.errors))
+                        }
+                        this.setState({
+                            ProjectedROI: 0 + ' AUD',
+                            ProjectedFees: 0 + ' USD'
+                        })
+                    }
+                }
             })
-        } else {
-            this.setSpinner(true)
+        }else{
+            alert("select Investment options")
         }
     }
     setSpinner(value) {
@@ -37,15 +47,15 @@ class ROITab extends React.Component {
     }
     render() {
         return (
-            
+
             <>
-            <Spinner animation="border" role="status" hidden={this.state.Spinner} style={{ position: 'absolute', right: '10%', top: '30%' }}>
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
+                <Spinner animation="border" role="status" hidden={this.state.Spinner} style={{ position: 'absolute', right: '10%', top: '30%' }}>
+                    <span className="visually-hidden">Loading...</span>
+                </Spinner>
                 <Card style={{ width: '35rem' }}>
-                    <Card.Header> 
-                        <span style={{fontSize:'16px',fontWeight:'bold'}}>Projected ROI</span>
-                             <Button variant="primary" style={{ position: 'relative', float: 'right' }} onClick={this.calculate}>calculate</Button>
+                    <Card.Header>
+                        <span style={{ fontSize: '16px', fontWeight: 'bold' }}>Projected ROI</span>
+                        <Button variant="primary" style={{ position: 'relative', float: 'right' }} onClick={this.calculate}>calculate</Button>
                     </Card.Header>
                     <Card.Body>
                         <Row className="g-2">
@@ -59,7 +69,7 @@ class ROITab extends React.Component {
                             </Col>
                         </Row>
                     </Card.Body>
-    
+
                 </Card>
             </>
         );
