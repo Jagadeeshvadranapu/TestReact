@@ -9,7 +9,7 @@ class ROITab extends React.Component {
         super(props);
         this.state = {
             ProjectedROI: "0 AUD",
-            ProjectedFees: "0 AUD",
+            ProjectedFees: "0 USD",
             Spinner: true
         }
         this.calculate = this.calculate.bind(this)
